@@ -1,0 +1,31 @@
+
+run the below command to switch the database to Project,
+command: use Project
+
+Run below queries to retrieve project documents,
+
+//selects all documents where an element in the employees array matches the specified document
+1)db.Projects.find( {"employees":{Lname:"Wallis",Fname:"Evan",hours:40} } ).forEach(printjson)
+
+//selects all project documents in which the employee 'Ted' is working
+2)db.Projects.find( { 'employees.Lname': { $eq:"Ted" } } ).forEach(printjson)
+
+//selects all project documents which have employees with working hours less than or equal to 10
+3)db.Projects.find( { 'employees.hours': { $lte: 5 } } ).forEach(printjson)
+
+//selects all project documents which have an employee named 'Wong' and working hours = 10
+4)db.Projects.find( { "employees": { $elemMatch: { Lname: "Wong",hours: 10 } } } ).forEach(printjson)
+
+Run below queries to retrieve Employee documents,
+
+//selects all documents where an element in the Projects array matches the specified document
+1)db.Employees.find( {"Projects":{Pname:"ProductY",Pnumber:2,hours:10} } ).forEach(printjson)
+
+//selects all Employees documents who are working in project 'ProductZ'
+2)db.Employees.find( { 'Projects.Pname': { $eq:"ProductZ" } } ).forEach(printjson)
+
+//selects all Employees documents who are working on projects with working hours <= 5
+3)db.Employees.find( { 'Projects.hours': { $lte: 5 } } ).forEach(printjson)
+
+//selects all Employees documents working in projects named '"OperatingSystem' and working hours = 40
+4)db.Employees.find( { "Projects": { $elemMatch: { Pname: "OperatingSystem",hours: 40 } } } ).forEach(printjson)
